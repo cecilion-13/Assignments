@@ -1,0 +1,16 @@
+database Name: Q2
+
+1.db.Q2.find({city:"ATLANTA",state:"GA"}).pretty()
+2.db.Q2.aggregate([{match:{$and:[{city:"ATLANTA"},{state:"GA"}]}}])
+3.db.Q2.aggregate([{$match:{city:"ATLANTA"}},{$group:{_id:"$pop"}},{$count:"zipcodesCount"}])
+4.db.Q2.aggregate([ {$match:{city:"ATLANTA"}} ,{$group:{_id:"$city",totalpop:{$sum:"$pop"}}}])
+answer is :{ "_id" : "ATLANTA", "totalpop" : 630046 }
+5. db.Q2.aggregate([ {$group:{_id:"$state",totalpop:{$sum:"$pop"}}}])
+6.db.Q2.aggregate([ {$group:{_id:"$state",totalpop:{$sum:"$pop"}}},{$sort:{totalpop:-1}}])
+7. db.Q2.aggregate([ {$group:{_id:"$state",totalpop:{$sum:"$pop"}}},{$sort:{totalpop:-1}},{$limit:3}])
+8. db.Q2.aggregate([ {$group:{_id:{city:"$city",state:"$state"},citypop:{$sum:"$pop"}}}])
+9.db.Q2.aggregate([ {$group:{_id:{city:"$city",state:"$state"},citypop:{$sum:"$pop"}}},{$sort:{citypop:-1}}])
+10.db.Q2.aggregate([ {$group:{_id:{city:"$city",state:"$state"},citypop:{$sum:"$pop"}}},{$sort:{citypop:-1}},{$limit:3}])
+11. db.Q2.aggregate([ {$match:{state:"ME"}}, {$group:{_id:"$city",citypop:{$sum:"$pop"}}},{$sort:{citypop:-1}},{$limit:3}])
+12. db.Q2.aggregate([ {$group:{_id:"$state",avgPop:{$avg:"$pop"}}}])
+13. db.Q2.aggregate([ {$group:{_id:"$state",avgPop:{$avg:"$pop"}}},{$sort:{avgPop:-1}},{$limit:3}])

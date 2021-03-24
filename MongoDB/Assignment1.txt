@@ -1,0 +1,47 @@
+Assignment 1
+Insert Documents
+1. db.movies.insert({title:"Fight Club",writer:"Chuck Palahniuko",year:1999,actors:["Brad Pitt","Edward Norton"]})
+2. db.movies.insert({title:"Pulp Fiction",writer:"Quentin Tarantino",year:1994,actors:["John Travolta","Uma Thurman"]})
+3. db.movies.insert({title:"Inglorious Basterds",writer:"Quentin Tarantino",year:2009,actors:["Brad Pitt","Diane Kruger","Eli Roth"]})
+4. db.movies.insert({title:"The Hobbit: An Unexpected Journey",writer:"J.R.R. Tolkein",year:2012,franchise:"The Hobbit"})
+5. db.movies.insert({title:"The Hobbit: The Desolation of Smaug",writer:"J.R.R. Tolkein",year:2013,franchise:"The Hobbit"})
+6. db.movies.insert({title:"The Hobbit: The Battle of the Five Armies",writer:"J.R.R. Tolkein",year:2012,franchise:"The Hobbit",synopsis:"Bilbo and many more.."})
+7. db.movies.insert({title:"Pee Wee Herman's Big Adventure"})
+8. db.movies.insert({title:"Avatar"})
+
+Query/Find Documents
+1. db.movies.find().pretty()
+2. db.movies.find({writer:"Quentin Tarantino"}).pretty()
+3. db.movies.find({ actors:{$in:["Brad Pitt"]}}).pretty()
+4. db.movies.find({franchise:"The Hobbit"}).pretty()
+5. db.movies.find({ $and:[{year:{$gte:1990}},{year:{$lt:2000}}]}).pretty()
+6. db.movies.find({ $or:[{year:{$lt:2000}},{year:{$gt:2010}}]}).pretty()
+
+Update Documents
+1. db.movies.update( {title:"The Hobbit: An Unexpected Journey"}, {$set:{ synopsis:"The Unexpected Journey of COurse and many more..."}})
+2. db.movies.update( {title:"The Hobbit: The Desolation of Smaug"}, {$set:{ synopsis:"The Desolation of Smaug and many more..."}})
+3. db.movies.update({ title:"Pulp Fiction"}, {$push:{actors:"Samuel L Jackson"}})
+
+Text Search
+To create index for text:- db.movies.createIndex({name:"text",description:"text"})
+1.db.movies.find({$text:{$search:"Biblo"}}).pretty()
+2.db.movies.find({$text:{$search:"Gandalf"}}).pretty()
+3.db.movies.find({$text:{$search:"Gandalf -Bilbo"}}).pretty()
+4.db.movies.find({$text:{$search:"dwarves hobbit"}}).pretty()
+5.db.movies.find({$text:{$search:"\"gold\" \"dragon\""}}).pretty()
+
+Delete Documents
+1.db.movies.deleteOne({title:"Pee Wee Herman's Big Adventure"})
+2.db.movies.deleteOne({title:"Avatar"})
+
+
+
+Querying Related Collections
+1.db.users.find()
+2.db.posts.find().pretty()
+3.db.posts.find({username:"GoodGuyGreg"}).pretty()
+4.db.posts.find({username:"ScumbagSteve"}).pretty()
+5.db.comments.find()
+6. db.comments.find({username:"GoodGuyGreg"}).pretty()
+7. db.comments.find({username:"ScumbagSteve"}).pretty()
+8.db.comments.find({post: ObjectId("6057311a2a0a67d2318a3018")}).pretty()
